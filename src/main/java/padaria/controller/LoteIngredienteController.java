@@ -1,0 +1,88 @@
+package padaria.controller;
+
+import java.util.List;
+
+import padaria.model.LoteIngrediente;
+import padaria.service.LoteIngredienteService;
+import padaria.utilitarios.Teclado;
+import padaria.utilitarios.Video;
+import java.util.NoSuchElementException;
+
+public class LoteIngredienteController {
+
+    private LoteIngredienteService loteIngredienteService;
+
+    public LoteIngredienteController(LoteIngredienteService loteIngredienteService) {
+        this.loteIngredienteService = loteIngredienteService;
+    }
+
+    public void cadastrarLoteIngrediente() {
+        String nome = Teclado.readString("Nome do lote: ");
+        int id = Teclado.readInteger("ID: ");
+
+        try {
+            loteIngredienteService.cadastrarLoteIngrediente(id, nome);
+            Video.mensagemOk("Lote cadastrado!");
+
+        } catch (IllegalArgumentException e) {
+            Video.mensagemErro(e.getMessage());
+
+        } catch (Exception e) {
+            Video.mensagemErro("Erro não previsto!");
+        }
+    }
+
+    public void listarLotesIngredientes() {
+
+        try {
+            List<LoteIngrediente> lotes = loteIngredienteService.listarLotesIngredientes();
+
+            for (LoteIngrediente lote : lotes) {
+                Video.println(lote.toString());
+            }
+
+        } catch (IllegalStateException e) {
+            Video.mensagemErro(e.getMessage());
+
+        } catch (Exception e) {
+            Video.mensagemErro("Erro não previsto!");
+        }
+    }
+
+    public void excluirViaNome() {
+        String nome = Teclado.readString("Nome do lote para excluir: ");
+
+        try {
+            loteIngredienteService.excluirLoteIngrediente(nome);
+            Video.mensagemOk("Lote excluído!");
+
+        } catch (IllegalStateException e) {
+            Video.mensagemErro(e.getMessage());
+
+        } catch (NoSuchElementException e) {
+            Video.mensagemErro(e.getMessage());
+
+        } catch (Exception e) {
+            Video.mensagemErro("Erro não previsto!");
+        }
+    }
+
+    public void buscarViaNome() {
+        String nome = Teclado.readString("Nome do lote para buscar: ");
+
+        try {
+            Object resultado = loteIngredienteService.buscarLoteIngrediente(nome);
+
+            Video.println(resultado.toString());
+
+        } catch (IllegalStateException e) {
+            Video.mensagemErro(e.getMessage());
+
+        } catch (NoSuchElementException e) {
+            Video.mensagemErro(e.getMessage());
+
+        } catch (Exception e) {
+            Video.mensagemErro("Erro não previsto!");
+        }
+    }
+}
