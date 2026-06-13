@@ -1,16 +1,20 @@
 package padaria.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Produto implements Serializable{
     private int id;
     private String nome;
+    private List<Ingredientes> ingredientes;
 
     private static final long serialVersionUID = 1L;
 
     public Produto(ProdutoBuilder produtoBuilder){
         this.id = produtoBuilder.id;
         this.nome = produtoBuilder.nome;
+        this.ingredientes = produtoBuilder.ingredientes;
     }
     
     public static ProdutoBuilder builder() {
@@ -28,12 +32,14 @@ public class Produto implements Serializable{
     public String toString(){
         return "Nome produto: " + nome +
                "\nId: " + id +
+               "\nIngredientes utilizados: \n" + ingredientes +
                "\n";
     }
 
     public static class ProdutoBuilder{
         private int id;
         private String nome;
+        private List<Ingredientes> ingredientes = new ArrayList<>();
 
         public ProdutoBuilder setId(int id){
             if(id < 0){
@@ -51,6 +57,14 @@ public class Produto implements Serializable{
                 throw new NumberFormatException();
             }
             this.nome = nome;
+            return this;
+        }
+
+        public ProdutoBuilder setIngredientes(List<Ingredientes> ingredientes){
+            if(ingredientes == null){
+                throw new NullPointerException();
+            }
+            this.ingredientes.addAll(ingredientes);
             return this;
         }
 

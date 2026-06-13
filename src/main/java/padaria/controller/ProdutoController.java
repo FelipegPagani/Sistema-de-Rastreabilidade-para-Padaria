@@ -1,16 +1,22 @@
 package padaria.controller;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import padaria.model.Produto;
+import padaria.model.*;
+import padaria.repository.IngredientesRepository;
+import padaria.service.IngredientesService;
 import padaria.service.ProdutoService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
 public class ProdutoController {
     private ProdutoService ProdutoService;
+    private List<Ingredientes> ingredientes = new ArrayList<>();
+    IngredientesRepository IR = new IngredientesRepository();
+    IngredientesService IS = new IngredientesService(IR);
 
     public ProdutoController(ProdutoService ProdutoService){
         this.ProdutoService = ProdutoService;
@@ -21,18 +27,37 @@ public class ProdutoController {
 
         String nome = Teclado.readString("Informe o nome do produto: ");
         int id = Teclado.readInteger("Informe o id do produto: ");
+        
+        Video.mensagem("Adicione os ingredientes utilizados: ");
+        int opcao = 0;
+        do {
+            opcao = Teclado.solicitarInt("Digite uma opção:\n 0 - Sair\n 1 - Add ingrediente");
+            if(opcao == 1){
+                try {
+                    ingredientes.add(IS.buscarViaNome(Teclado.solicitarString("Informe o ingrediente utilizado: ")));
+                } catch (Exception e) {
+                    Video.mensagemErro("Ingrediente não encontrado, tente novamente!");
+                }
+                
+            }            
+        } while (opcao == 1);
 
-       
         try {
-            
+            if(ingredientes.isEmpty()){
+            throw new EmptyStackException();
+        }          
             Produto produto = Produto.builder()
                         .setId(id)
                         .setNome(nome)
+                        .setIngredientes(ingredientes)
                         .construir();
             
             ProdutoService.adicionar(produto);
             Video.mensagemOk("Produto Cadastrado!");
         } 
+        catch(EmptyStackException e){
+            Video.mensagemErro("Ao menos um ingrediente deve ser informado, produto não cadastrado!");
+        }
         catch(NumberFormatException e){
             Video.mensagemErro("Digite apenas letras para o nome!");
         }

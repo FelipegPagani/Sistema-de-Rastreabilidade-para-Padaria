@@ -14,7 +14,6 @@ public class Menu {
     }
 
     public int exibir() {
-        Video.limparTela();
         Video.exibirCabecalho(titulo);
         System.out.println();
 
