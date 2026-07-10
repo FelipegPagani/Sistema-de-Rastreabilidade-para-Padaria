@@ -86,11 +86,11 @@ public class App {
                     do {
                         opcaoPessoa = MenuClientes.exibir();
                         switch (opcaoPessoa) {
-                            case 1 -> app.getClientesController().listarClientes();
-                            case 2 -> app.getClientesController().cadastrarCliente();
+                            case 1 -> app.getClientesController().listar();
+                            case 2 -> app.getClientesController().cadastrar();
                             case 3 -> app.getClientesController().excluirViaCpf();
-                            case 4 -> app.getClientesController().excluirViaNome();
-                            case 5 -> app.getClientesController().buscarViaNome();
+                            case 4 -> app.getClientesController().excluir();
+                            case 5 -> app.getClientesController().buscar();
                             case 6 -> app.getClientesController().buscarViaCpf();
                         }
                     } while (opcaoPessoa != 7);

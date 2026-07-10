@@ -2,28 +2,32 @@ package padaria.controller;
 
 import java.util.List;
 import padaria.model.Clientes;
+import padaria.model.Fornecedores;
 import padaria.service.ClientesService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 import java.util.NoSuchElementException;
 
-public class ClientesController {
+public class ClientesController implements ControllerInterface<Clientes>{
 
     private ClientesService clientesService;
 
     public ClientesController(ClientesService clientesService) {
         this.clientesService = clientesService;
     }
-
-    public void cadastrarCliente() {
+    @Override
+    public void cadastrar() {
         Video.mensagemInfo("Cadastrar Cliente:");
 
         String nome = Teclado.readString("Informe o nome do cliente: ");
         String cpf = Teclado.readString("Informe o CPF do cliente: ");
 
-        Clientes cliente = new Clientes(nome, cpf, "");
-
         try {
+            Clientes cliente = Clientes.builder()
+                        .setNome(nome)
+                        .setCPF(cpf)
+                        .construir();
+
             clientesService.adicionar(cliente);
             Video.mensagemOk("Cliente cadastrado!");
         } catch (IllegalArgumentException e) {
@@ -33,7 +37,8 @@ public class ClientesController {
         }
     }
 
-    public void listarClientes() {
+    @Override
+    public void listar() {
         Video.mensagemInfo("Lista de Clientes:");
 
         try {
@@ -50,7 +55,8 @@ public class ClientesController {
         }
     }
 
-    public void excluirViaNome() {
+    @Override
+    public void excluir() {
         String nome = Teclado.readString("Digite o nome do cliente a ser deletado: ");
 
         try {
@@ -82,7 +88,8 @@ public class ClientesController {
         }
     }
 
-    public void buscarViaNome() {
+    @Override
+    public void buscar() {
         String nome = Teclado.readString("Digite o nome do cliente: ");
 
         try {

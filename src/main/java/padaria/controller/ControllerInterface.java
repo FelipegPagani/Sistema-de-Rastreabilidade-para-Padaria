@@ -6,10 +6,10 @@ public interface ControllerInterface <T>{
 
     void cadastrar();
 
-    List<T> listar();
+    void listar();
     
-    void excluir(String nome);
+    void excluir();
 
-    Object buscar(String nome);
+    void buscar();
 
 }
