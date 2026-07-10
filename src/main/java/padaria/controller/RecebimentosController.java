@@ -14,7 +14,7 @@ import padaria.service.RecebimentosService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
-public class RecebimentosController {
+public class RecebimentosController implements ControllerInterface<Recebimentos>{
     private RecebimentosService recebimentosService;
         IngredientesRepository IR = new IngredientesRepository();
         IngredientesService IS = new IngredientesService(IR);
@@ -26,7 +26,8 @@ public class RecebimentosController {
         this.recebimentosService = recebimentosService;
     }
 
-     public void cadastrarRecebimento(){
+    @Override
+     public void cadastrar(){
         Video.mensagemInfo("Cadastrar recebimento: ");
 
         int id = Teclado.readInt("Informe o id do recebimento: ");
@@ -74,7 +75,8 @@ public class RecebimentosController {
         }
     }
 
-    public void listarRecebimentos(){
+    @Override
+    public void listar(){
         Video.mensagemInfo("Lista de recebimentos: ");
 
         try {
@@ -88,7 +90,8 @@ public class RecebimentosController {
         }
     }
 
-    public void excluirViaLote(){
+    @Override
+    public void excluir(){
         Video.mensagemInfo("Exclusão de recebimento via lote: ");
         
         String lote = Teclado.readString("Digite o lote do recebimento a ser deletado: ");
@@ -128,7 +131,8 @@ public class RecebimentosController {
         }               
     }
 
-    public void buscarViaLote(){
+    @Override
+    public void buscar(){
         Video.mensagemInfo("Buscar recebimento por lote: ");
 
         String lote = Teclado.readString("Digite o lote do recebimento a ser buscado: ");

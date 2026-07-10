@@ -9,14 +9,15 @@ import padaria.service.IngredientesService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
-public class IngredientesController {
+public class IngredientesController implements ControllerInterface<Ingredientes>{
     private IngredientesService ingredientesService;
 
     public IngredientesController(IngredientesService ingredientesService){
         this.ingredientesService = ingredientesService;
     }
 
-    public void cadastrarIngrediente(){
+    @Override
+    public void cadastrar(){
         Video.mensagemInfo("Cadastrar Ingredientes: ");
 
         String nome = Teclado.readString("Informe o nome do ingrediente: ");
@@ -47,7 +48,8 @@ public class IngredientesController {
         }
     }
 
-    public void listarIngredientes(){
+    @Override
+    public void listar(){
         Video.mensagemInfo("Lista de ingredientes: ");
 
         try {
@@ -64,7 +66,8 @@ public class IngredientesController {
         }
     }
 
-    public void excluirViaNome(){
+    @Override
+    public void excluir(){
         Video.mensagemInfo("Exclusão de ingrediente via nome: ");
         
         String nome = Teclado.readString("Digite o nome do ingrediente a ser deletado: ");
@@ -103,7 +106,8 @@ public class IngredientesController {
         }
     }
 
-    public void buscarViaNome(){
+    @Override
+    public void buscar(){
         Video.mensagemInfo("Buscar ingrediente por nome: ");
 
         String nome = Teclado.readString("Digite o nome do ingrediente a ser buscado: ");

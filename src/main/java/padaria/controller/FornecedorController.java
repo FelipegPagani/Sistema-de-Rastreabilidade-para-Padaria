@@ -10,14 +10,15 @@ import padaria.service.FornecedoresService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
-public class FornecedorController {
+public class FornecedorController implements ControllerInterface<Fornecedores>{
     private FornecedoresService fornecedorService;
 
     public FornecedorController(FornecedoresService fornecedorService){
         this.fornecedorService = fornecedorService;
     }
 
-    public void cadastrarFornededor(){
+    @Override
+    public void cadastrar(){
         Video.mensagemInfo("Cadastrar Fornecedor: ");
 
         String nome = Teclado.readString("Informe o nome do Fornecedor: ");
@@ -49,7 +50,8 @@ public class FornecedorController {
         }
     }
 
-    public void listarFornecedores(){
+    @Override
+    public void listar(){
         Video.mensagemInfo("Lista de Fornecedores: ");
 
         try {
@@ -66,7 +68,9 @@ public class FornecedorController {
         Video.mensagemErro("Erro não previsto!");
         }
     }
- public void excluirViaNome(){
+
+    @Override
+    public void excluir(){
         Video.mensagemInfo("Exclusão de fornecedor via nome: ");
         
         String nome = Teclado.readString("Digite o nome do fornecedor a ser deletado: ");
@@ -105,7 +109,8 @@ public class FornecedorController {
         }        
     }
 
-    public void buscarViaNome(){
+    @Override
+    public void buscar(){
         Video.mensagemInfo("Buscar fornecedor por nome: ");
 
         String nome = Teclado.readString("Digite o nome do fornecedor a ser buscado: ");

@@ -9,7 +9,7 @@ import padaria.utilitarios.Video;
 import padaria.model.LoteIngrediente;
 import java.util.NoSuchElementException;
 
-public class LoteProducaoController {
+public class LoteProducaoController implements ControllerInterface<LoteProducao>{
 
     private LoteProducaoService loteProducaoService;
 
@@ -17,7 +17,8 @@ public class LoteProducaoController {
         this.loteProducaoService = loteProducaoService;
     }
 
-    public void listarLotesProducao() {
+    @Override
+    public void listar() {
 
         try {
             List<LoteProducao> lotes = loteProducaoService.listar();
@@ -34,7 +35,8 @@ public class LoteProducaoController {
         }
     }
 
-    public void excluirViaNome() {
+    @Override
+    public void excluir() {
         String nome = Teclado.readString("Nome do lote de produção para excluir: ");
 
         try {
@@ -52,7 +54,8 @@ public class LoteProducaoController {
         }
     }
 
-    public void buscarViaNome() {
+    @Override
+    public void buscar() {
         String nome = Teclado.readString("Nome do lote de produção para buscar: ");
 
         try {
@@ -71,7 +74,8 @@ public class LoteProducaoController {
         }
     }
 
-    public void cadastrarLoteProducao() {
+    @Override
+    public void cadastrar() {
         String nome = Teclado.readString("Nome do lote de produção: ");
         int id = Teclado.readInteger("ID: ");
 

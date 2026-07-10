@@ -28,12 +28,12 @@ public class App {
                     do {
                         opcaoPessoa = MenuProduto.exibir();
                         switch (opcaoPessoa) { // sem break, com uso de ->
-                            case 1 -> app.getProdutoController().listarProduto();
-                            case 2 -> app.getProdutoController().cadastrarproduto();
+                            case 1 -> app.getProdutoController().listar();
+                            case 2 -> app.getProdutoController().cadastrar();
                             case 3 -> app.getProdutoController().excluirViaId();
-                            case 4 -> app.getProdutoController().excluirViaNome();
+                            case 4 -> app.getProdutoController().excluir();
                             case 5 -> app.getProdutoController().buscarViaId();
-                            case 6 -> app.getProdutoController().buscarViaNome();
+                            case 6 -> app.getProdutoController().buscar();
                         }
                     } while (opcaoPessoa != 7);
                 }
@@ -42,12 +42,12 @@ public class App {
                     do {
                         opcaoPessoa = MenuIngrediente.exibir();
                         switch (opcaoPessoa) {
-                            case 1 -> app.getIngredientesController().listarIngredientes();
-                            case 2 ->  app.getIngredientesController().cadastrarIngrediente();
+                            case 1 -> app.getIngredientesController().listar();
+                            case 2 ->  app.getIngredientesController().cadastrar();
                             case 3 -> app.getIngredientesController().excluirViaId();
-                            case 4 -> app.getIngredientesController().excluirViaNome();
+                            case 4 -> app.getIngredientesController().excluir();
                             case 5 -> app.getIngredientesController().buscarViaId();
-                            case 6 ->  app.getIngredientesController().buscarViaNome();
+                            case 6 ->  app.getIngredientesController().buscar();
                         }
                     } while (opcaoPessoa != 7);
                 }
@@ -56,12 +56,12 @@ public class App {
                     do {
                         opcaoPessoa = MenuFornecedor.exibir();
                         switch (opcaoPessoa) { 
-                            case 1 -> app.getFornecedorController().listarFornecedores();
-                            case 2 ->  app.getFornecedorController().cadastrarFornededor();
+                            case 1 -> app.getFornecedorController().listar();
+                            case 2 ->  app.getFornecedorController().cadastrar();
                             case 3 -> app.getFornecedorController().excluirViaCNPJ();
-                            case 4 -> app.getFornecedorController().excluirViaNome();
+                            case 4 -> app.getFornecedorController().excluir();
                             case 5 -> app.getFornecedorController().buscarViaCNPJ();
-                            case 6 -> app.getFornecedorController().buscarViaNome();
+                            case 6 -> app.getFornecedorController().buscar();
                         }
                     } while (opcaoPessoa != 7);
                 }
@@ -70,12 +70,12 @@ public class App {
                     do {
                         opcaoPessoa = MenuRecebimentos.exibir();
                         switch (opcaoPessoa) { // sem break, com uso de ->
-                            case 1 -> app.getRecebimentosController().listarRecebimentos();
-                            case 2 -> app.getRecebimentosController().cadastrarRecebimento();
+                            case 1 -> app.getRecebimentosController().listar();
+                            case 2 -> app.getRecebimentosController().cadastrar();
                             case 3 -> app.getRecebimentosController().excluirViaId();
-                            case 4 -> app.getRecebimentosController().excluirViaLote();
+                            case 4 -> app.getRecebimentosController().excluir();
                             case 5 -> app.getRecebimentosController().buscarViaId();
-                            case 6 -> app.getRecebimentosController().buscarViaLote();
+                            case 6 -> app.getRecebimentosController().buscar();
                             case 7 -> app.getRecebimentosController().buscarViaIngrediente();
                             case 8 -> app.getRecebimentosController().buscarViaFornecedor();
                         }
@@ -100,10 +100,10 @@ public class App {
                     do {
                         opcaoPessoa = MenuLoteIngrediente.exibir();
                         switch (opcaoPessoa) {
-                            case 1 -> app.getLoteIngredienteController().listarLotesIngredientes();
-                            case 2 -> app.getLoteIngredienteController().cadastrarLoteIngrediente();
-                            case 3 -> app.getLoteIngredienteController().excluirViaNome();
-                            case 4 -> app.getLoteIngredienteController().buscarViaNome();
+                            case 1 -> app.getLoteIngredienteController().listar();
+                            case 2 -> app.getLoteIngredienteController().cadastrar();
+                            case 3 -> app.getLoteIngredienteController().excluir();
+                            case 4 -> app.getLoteIngredienteController().buscar();
                         }
                     } while (opcaoPessoa != 5);
                 }
@@ -113,10 +113,10 @@ public class App {
                         opcaoPessoa = MenuLoteProducao.exibir();
 
                         switch (opcaoPessoa) {
-                            case 1 -> app.getLoteProducaoController().listarLotesProducao();
-                            case 2 -> app.getLoteProducaoController().cadastrarLoteProducao();
-                            case 3 -> app.getLoteProducaoController().excluirViaNome();
-                            case 4 -> app.getLoteProducaoController().buscarViaNome();
+                            case 1 -> app.getLoteProducaoController().listar();
+                            case 2 -> app.getLoteProducaoController().cadastrar();
+                            case 3 -> app.getLoteProducaoController().excluir();
+                            case 4 -> app.getLoteProducaoController().buscar();
                         }
                     } while (opcaoPessoa != 5);
                 }

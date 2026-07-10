@@ -12,7 +12,7 @@ import padaria.service.ProdutoService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
-public class ProdutoController {
+public class ProdutoController implements ControllerInterface<Produto>{
     private ProdutoService ProdutoService;
     private List<Ingredientes> ingredientes = new ArrayList<>();
     IngredientesRepository IR = new IngredientesRepository();
@@ -22,7 +22,8 @@ public class ProdutoController {
         this.ProdutoService = ProdutoService;
     }
 
-    public void cadastrarproduto(){
+    @Override
+    public void cadastrar(){
         Video.mensagemInfo("Cadastrar Produtos: ");
 
         String nome = Teclado.readString("Informe o nome do produto: ");
@@ -72,7 +73,8 @@ public class ProdutoController {
         }
     }
 
-    public void listarProduto(){
+    @Override
+    public void listar(){
         Video.mensagemInfo("Lista de Produtos: ");
 
         try {
@@ -86,7 +88,8 @@ public class ProdutoController {
         }
     }
 
-    public void excluirViaNome(){
+    @Override
+    public void excluir(){
         Video.mensagemInfo("Exclusão de produto via nome: ");
         
         String nome = Teclado.readString("Digite o nome do produto a ser deletado: ");
@@ -123,7 +126,8 @@ public class ProdutoController {
         }
     }
 
-    public void buscarViaNome(){
+    @Override
+    public void buscar(){
         Video.mensagemInfo("Buscar produto por nome: ");
 
         String nome = Teclado.readString("Digite o nome do produto a ser buscado: ");
