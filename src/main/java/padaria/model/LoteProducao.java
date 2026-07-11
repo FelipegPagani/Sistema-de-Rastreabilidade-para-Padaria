@@ -3,8 +3,6 @@ package padaria.model;
 import padaria.utilitarios.Video;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoteProducao implements Serializable{
 
@@ -12,12 +10,12 @@ public class LoteProducao implements Serializable{
 
     private int id;
     private String nome;
-    private List<LoteIngrediente> lotesIngredientes;
+    private LoteIngrediente loteIngredienteUsado;
 
     public LoteProducao(LoteProducaoBuilder loteProducaoBuilder){
         this.nome = loteProducaoBuilder.nome;
         this.id = loteProducaoBuilder.id;
-        this.lotesIngredientes = new ArrayList<LoteIngrediente>();
+        this.loteIngredienteUsado = loteProducaoBuilder.loteIngredienteUsado;
     }
 
     public static LoteProducaoBuilder builder(){
@@ -34,32 +32,15 @@ public class LoteProducao implements Serializable{
 
     @Override
     public String toString() {
-        return "ID: " + id + " | Nome: " + nome;
-    }
-
-    public void adicionarLoteIngrediente(LoteIngrediente loteIngrediente) {
-    if (loteIngrediente != null) {
-        lotesIngredientes.add(loteIngrediente);
-    }
-    }
-
-    public List<LoteIngrediente> getLotesIngredientes() {
-        return lotesIngredientes;
-    }
-
-    public boolean possuiLoteIngrediente(String nome) {
-        for (LoteIngrediente loteIngrediente : lotesIngredientes) {
-            if (loteIngrediente.getNome().equalsIgnoreCase(nome)) {
-                return true;
-            }
-    }
-        return false;
+        return "ID: " + id + " | Nome: " + nome +
+        "\nLote de ingrediente: " + loteIngredienteUsado.getNome();
     }
 
     public static class LoteProducaoBuilder{
 
         private String nome;
         private int id;
+        private LoteIngrediente loteIngredienteUsado;
 
         public LoteProducaoBuilder setNome(String nome){
 
@@ -80,6 +61,15 @@ public class LoteProducao implements Serializable{
             }
 
             this.id = id;
+            return this;
+        }
+
+        public LoteProducaoBuilder setLoteIngrediente(LoteIngrediente lotesIngredientes){
+            if(lotesIngredientes == null){
+                throw new IllegalArgumentException();
+            }
+
+            this.loteIngredienteUsado = lotesIngredientes;
             return this;
         }
 

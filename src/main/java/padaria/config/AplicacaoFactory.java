@@ -110,7 +110,7 @@ public class AplicacaoFactory {
         LoteProducaoRepository loteProducaoRepository = criarLoteProducaoRepository();
         RastrearService rastrearService = new RastrearService(loteProducaoRepository);
 
-        LoteIngredienteService loteIngredienteService = new LoteIngredienteService();
+        LoteIngredienteService loteIngredienteService = new LoteIngredienteService(criarLoteIngredienteRepository());
 
         return new RastrearController(rastrearService, loteIngredienteService);
     }
@@ -121,6 +121,10 @@ public class AplicacaoFactory {
         }
 
         return loteProducaoRepository;
+    }
+
+    private LoteIngredienteRepository criarLoteIngredienteRepository() {
+         return new LoteIngredienteRepository();
     }
 
     public ClientesController getClientesController() {
@@ -145,7 +149,8 @@ public class AplicacaoFactory {
     }
 
     private LoteIngredienteController criarLoteIngredienteController() {
-        LoteIngredienteService loteIngredienteService = new LoteIngredienteService();
+        LoteIngredienteRepository loteIngredienteRepository = criarLoteIngredienteRepository();
+        LoteIngredienteService loteIngredienteService = new LoteIngredienteService(loteIngredienteRepository);
 
         return new LoteIngredienteController(loteIngredienteService);
     }

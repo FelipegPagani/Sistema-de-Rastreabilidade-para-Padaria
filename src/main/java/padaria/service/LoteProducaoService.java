@@ -25,14 +25,7 @@ public class LoteProducaoService {
         loteProducaoRepository.excluir(nome);
     }
 
-    public Object buscarViaNome(String nome) {
+    public LoteProducao buscarViaNome(String nome) {
         return loteProducaoRepository.buscar(nome);
-    }
-
-    public void adicionarIngredienteAoLote(
-        LoteProducao loteProducao,
-        padaria.model.LoteIngrediente loteIngrediente
-    ) {
-    loteProducao.adicionarLoteIngrediente(loteIngrediente);
     }
 }

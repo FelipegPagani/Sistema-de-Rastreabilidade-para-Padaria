@@ -9,17 +9,11 @@ public class LoteIngredienteService {
 
     private LoteIngredienteRepository loteIngredienteRepository;
 
-    public LoteIngredienteService() {
+    public LoteIngredienteService(LoteIngredienteRepository loteIngredienteRepository) {
         this.loteIngredienteRepository = new LoteIngredienteRepository();
     }
 
-    public void cadastrarLoteIngrediente(int id, String nome) {
-
-        LoteIngrediente loteIngrediente = LoteIngrediente.builder()
-                .setId(id)
-                .setNome(nome)
-                .construir();
-
+    public void cadastrarLoteIngrediente(LoteIngrediente loteIngrediente) {
         loteIngredienteRepository.adicionar(loteIngrediente);
     }
 
@@ -27,7 +21,7 @@ public class LoteIngredienteService {
         return loteIngredienteRepository.listar();
     }
 
-    public Object buscarLoteIngrediente(String nome) {
+    public LoteIngrediente buscarLoteIngrediente(String nome) {
         return loteIngredienteRepository.buscar(nome);
     }
 

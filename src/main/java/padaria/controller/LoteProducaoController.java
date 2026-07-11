@@ -3,6 +3,8 @@ package padaria.controller;
 import java.util.List;
 
 import padaria.model.LoteProducao;
+import padaria.repository.LoteIngredienteRepository;
+import padaria.service.LoteIngredienteService;
 import padaria.service.LoteProducaoService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
@@ -12,6 +14,8 @@ import java.util.NoSuchElementException;
 public class LoteProducaoController implements ControllerInterface<LoteProducao>{
 
     private LoteProducaoService loteProducaoService;
+    LoteIngredienteRepository LIRepository = new LoteIngredienteRepository();
+    LoteIngredienteService LIService = new LoteIngredienteService(LIRepository);
 
     public LoteProducaoController(LoteProducaoService loteProducaoService) {
         this.loteProducaoService = loteProducaoService;
@@ -59,7 +63,7 @@ public class LoteProducaoController implements ControllerInterface<LoteProducao>
         String nome = Teclado.readString("Nome do lote de produção para buscar: ");
 
         try {
-            Object resultado = loteProducaoService.buscarViaNome(nome);
+            LoteProducao resultado = loteProducaoService.buscarViaNome(nome);
 
             Video.println(resultado.toString());
 
@@ -78,30 +82,24 @@ public class LoteProducaoController implements ControllerInterface<LoteProducao>
     public void cadastrar() {
         String nome = Teclado.readString("Nome do lote de produção: ");
         int id = Teclado.readInteger("ID: ");
-
+        
         try {
+            
+            LoteIngrediente loteIngrediente = LIService.buscarLoteIngrediente(Teclado.solicitarString("Digite o lote de ingrediente utilizado: "));
             LoteProducao lote = LoteProducao.builder()
                     .setId(id)
                     .setNome(nome)
+                    .setLoteIngrediente(loteIngrediente)
                     .construir();
 
-            String nomeIngrediente = Teclado.readString("Nome do lote de ingrediente usado: ");
-            int idIngrediente = Teclado.readInteger("ID do lote de ingrediente usado: ");
-
-            LoteIngrediente loteIngrediente = LoteIngrediente.builder()
-                    .setId(idIngrediente)
-                    .setNome(nomeIngrediente)
-                    .construir();
-
-            loteProducaoService.adicionarIngredienteAoLote(lote, loteIngrediente);
             loteProducaoService.adicionar(lote);
-
             Video.mensagemOk("Lote de produção cadastrado!");
 
         } catch (IllegalArgumentException e) {
             Video.mensagemErro(e.getMessage());
 
         } catch (Exception e) {
+            e.printStackTrace();
             Video.mensagemErro("Erro não previsto!");
         }
     }

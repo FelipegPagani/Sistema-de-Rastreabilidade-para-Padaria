@@ -1,6 +1,7 @@
 package padaria.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import padaria.utilitarios.Video;
 
@@ -10,6 +11,7 @@ public class LoteIngrediente implements Serializable{
 
     private int id;
     private String nome;
+    private ArrayList<Ingredientes> Ingredientes;
 
     public LoteIngrediente(LoteIngredienteBuilder loteIngredienteBuilder){
         this.nome = loteIngredienteBuilder.nome;

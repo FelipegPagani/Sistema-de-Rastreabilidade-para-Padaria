@@ -22,7 +22,12 @@ public class LoteIngredienteController implements ControllerInterface<LoteIngred
         int id = Teclado.readInteger("ID: ");
 
         try {
-            loteIngredienteService.cadastrarLoteIngrediente(id, nome);
+            LoteIngrediente loteIngrediente = LoteIngrediente.builder()
+                .setId(id)
+                .setNome(nome)
+                .construir();
+                
+            loteIngredienteService.cadastrarLoteIngrediente(loteIngrediente);
             Video.mensagemOk("Lote cadastrado!");
 
         } catch (IllegalArgumentException e) {
