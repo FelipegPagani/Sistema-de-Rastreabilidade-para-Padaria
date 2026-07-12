@@ -2,7 +2,10 @@ package padaria.controller;
 
 import java.util.List;
 
+import padaria.model.Ingredientes;
 import padaria.model.LoteIngrediente;
+import padaria.repository.IngredientesRepository;
+import padaria.service.IngredientesService;
 import padaria.service.LoteIngredienteService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
@@ -11,6 +14,8 @@ import java.util.NoSuchElementException;
 public class LoteIngredienteController implements ControllerInterface<LoteIngrediente>{
 
     private LoteIngredienteService loteIngredienteService;
+    IngredientesRepository IR = new IngredientesRepository();
+    IngredientesService IS = new IngredientesService(IR);
 
     public LoteIngredienteController(LoteIngredienteService loteIngredienteService) {
         this.loteIngredienteService = loteIngredienteService;
@@ -19,15 +24,15 @@ public class LoteIngredienteController implements ControllerInterface<LoteIngred
     @Override
     public void cadastrar() {
         String nome = Teclado.readString("Nome do lote: ");
-        int id = Teclado.readInteger("ID: ");
-
+        
         try {
+            Ingredientes ingrediente = IS.buscarViaNome(Teclado.solicitarString("Digite o nome do ingrediente do lote: "));
             LoteIngrediente loteIngrediente = LoteIngrediente.builder()
-                .setId(id)
                 .setNome(nome)
+                .setIngredientes(ingrediente)
                 .construir();
                 
-            loteIngredienteService.cadastrarLoteIngrediente(loteIngrediente);
+            loteIngredienteService.adicionarLote(loteIngrediente);
             Video.mensagemOk("Lote cadastrado!");
 
         } catch (IllegalArgumentException e) {

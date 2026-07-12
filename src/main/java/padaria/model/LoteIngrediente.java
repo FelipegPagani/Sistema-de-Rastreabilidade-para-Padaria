@@ -1,21 +1,23 @@
 package padaria.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
+import padaria.utilitarios.GeradorIdentificadorUnico;
 import padaria.utilitarios.Video;
 
 public class LoteIngrediente implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private int id;
     private String nome;
-    private ArrayList<Ingredientes> Ingredientes;
+    private int id;
+    private Ingredientes ingrediente;
+
 
     public LoteIngrediente(LoteIngredienteBuilder loteIngredienteBuilder){
         this.nome = loteIngredienteBuilder.nome;
         this.id = loteIngredienteBuilder.id;
+        this.ingrediente = loteIngredienteBuilder.ingrediente;
     }
 
     public static LoteIngredienteBuilder builder(){
@@ -26,19 +28,18 @@ public class LoteIngrediente implements Serializable{
         return nome;
     }
 
-    public int getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
-        return "ID: " + id + " | Nome: " + nome;
+        return "Nome: " + nome + "| Id: " + id +
+        "\nIngrediente: \n" + ingrediente.toString();
+        
     }
 
     public static class LoteIngredienteBuilder{
 
         private String nome;
-        private int id;
+        private int id = GeradorIdentificadorUnico.gerarIDUnicoInt();
+        private Ingredientes ingrediente;
 
         public LoteIngredienteBuilder setNome(String nome){
 
@@ -51,14 +52,13 @@ public class LoteIngrediente implements Serializable{
             return this;
         }
 
-        public LoteIngredienteBuilder setId(int id){
+        public LoteIngredienteBuilder setIngredientes(Ingredientes ingrediente){
 
-            if(id < 0){
-                Video.mensagemErro("Id inválido!");
-                System.exit(0);
+            if(ingrediente == null){
+                throw new IllegalArgumentException();
             }
 
-            this.id = id;
+            this.ingrediente = ingrediente;
             return this;
         }
 

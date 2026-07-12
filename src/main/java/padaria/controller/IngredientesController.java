@@ -5,12 +5,17 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import padaria.model.Ingredientes;
+import padaria.model.LoteIngrediente;
+import padaria.repository.LoteIngredienteRepository;
 import padaria.service.IngredientesService;
+import padaria.service.LoteIngredienteService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
 public class IngredientesController implements ControllerInterface<Ingredientes>{
     private IngredientesService ingredientesService;
+    LoteIngredienteRepository LIR = new LoteIngredienteRepository();
+    LoteIngredienteService LIS = new LoteIngredienteService(LIR);
 
     public IngredientesController(IngredientesService ingredientesService){
         this.ingredientesService = ingredientesService;
@@ -19,20 +24,26 @@ public class IngredientesController implements ControllerInterface<Ingredientes>
     @Override
     public void cadastrar(){
         Video.mensagemInfo("Cadastrar Ingredientes: ");
-
-        String nome = Teclado.readString("Informe o nome do ingrediente: ");
-        int id = Teclado.readInteger("Informe o id do ingrediente: ");
-
-        
-        try {
+    try {
+        String nomeIngrediente = Teclado.readString("Informe o nome do ingrediente: ");
+        String nomeLote = Teclado.readString("Informe o nome do lote: ");
+     
             
             Ingredientes ingrediente = Ingredientes.builder()
-                        .setId(id)
-                        .setNome(nome)
+                        .setNome(nomeIngrediente)
+                        .setLote(nomeLote)
                         .construir();
-
             ingredientesService.adicionar(ingrediente);
-            Video.mensagemOk("Ingrediente Cadastrado!");
+
+            LoteIngrediente lote = LoteIngrediente.builder()
+                    .setNome(nomeLote)
+                    .setIngredientes(ingrediente)
+                    .construir();
+
+            LIS.adicionarLote(lote);
+
+Video.mensagemOk("Ingrediente e lote cadastrados com sucesso!");
+            Video.mensagemOk("Ingrediente e lote cadastrados com sucesso!");
         } 
         catch(NumberFormatException e){
             Video.mensagemErro("Digite apenas letras para o nome!");

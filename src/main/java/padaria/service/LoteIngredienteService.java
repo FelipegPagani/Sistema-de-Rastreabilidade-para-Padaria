@@ -13,7 +13,7 @@ public class LoteIngredienteService {
         this.loteIngredienteRepository = new LoteIngredienteRepository();
     }
 
-    public void cadastrarLoteIngrediente(LoteIngrediente loteIngrediente) {
+    public void adicionarLote(LoteIngrediente loteIngrediente) {
         loteIngredienteRepository.adicionar(loteIngrediente);
     }
 
