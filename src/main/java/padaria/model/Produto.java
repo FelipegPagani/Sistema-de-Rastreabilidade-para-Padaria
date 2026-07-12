@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import padaria.utilitarios.GeradorIdentificadorUnico;
+
 public class Produto implements Serializable{
     private int id;
     private String nome;
@@ -37,18 +39,10 @@ public class Produto implements Serializable{
     }
 
     public static class ProdutoBuilder{
-        private int id;
+        private int id = GeradorIdentificadorUnico.gerarIDUnicoInt();;
         private String nome;
         private List<Ingredientes> ingredientes = new ArrayList<>();
 
-        public ProdutoBuilder setId(int id){
-            if(id < 0){
-                throw new IllegalArgumentException();
-            }
-            this.id=id;
-            return this;
-        }
-        
          public ProdutoBuilder setNome(String nome){
             if(nome == null || nome.trim().isEmpty()){
                 throw new IllegalArgumentException();

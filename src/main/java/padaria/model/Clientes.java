@@ -1,6 +1,5 @@
 package padaria.model;
 
-import padaria.utilitarios.Video;
 import java.io.Serializable;
 
 public class Clientes implements Serializable{

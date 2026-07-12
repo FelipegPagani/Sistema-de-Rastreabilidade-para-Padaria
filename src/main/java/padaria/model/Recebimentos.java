@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
+import padaria.utilitarios.GeradorIdentificadorUnico;
+
 public class Recebimentos implements Serializable{
     private int id;
     private Ingredientes insumo;
@@ -64,21 +66,13 @@ public class Recebimentos implements Serializable{
     }
 
     public static class RecebimentosBuilder{
-        private int id;
+        private int id = GeradorIdentificadorUnico.gerarIDUnicoInt();;
         private Ingredientes insumo;
         private Fornecedores fornecedor;
         private String lote;
         private LocalDate dataValidade;
         private LocalDate dataRecebimento;
         private LocalDate dataAtual = LocalDate.now();
-
-        public RecebimentosBuilder setId(int id){
-            if(id < 0){
-                throw new IllegalArgumentException();
-            }
-            this.id = id ;
-            return this;
-        }
 
         public RecebimentosBuilder setInsumo(Ingredientes insumo){
             if(insumo == null){

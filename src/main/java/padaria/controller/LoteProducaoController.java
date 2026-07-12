@@ -81,13 +81,11 @@ public class LoteProducaoController implements ControllerInterface<LoteProducao>
     @Override
     public void cadastrar() {
         String nome = Teclado.readString("Nome do lote de produção: ");
-        int id = Teclado.readInteger("ID: ");
         
         try {
             
             LoteIngrediente loteIngrediente = LIService.buscarLoteIngrediente(Teclado.solicitarString("Digite o lote de ingrediente utilizado: "));
             LoteProducao lote = LoteProducao.builder()
-                    .setId(id)
                     .setNome(nome)
                     .setLoteIngrediente(loteIngrediente)
                     .construir();

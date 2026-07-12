@@ -2,7 +2,6 @@ package padaria.controller;
 
 import java.util.List;
 import padaria.model.Clientes;
-import padaria.model.Fornecedores;
 import padaria.service.ClientesService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;

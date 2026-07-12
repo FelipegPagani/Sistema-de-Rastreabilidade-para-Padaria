@@ -2,15 +2,19 @@ package padaria.model;
 
 import java.io.Serializable;
 
+import padaria.utilitarios.GeradorIdentificadorUnico;
+
 public class Ingredientes implements Serializable{
     private String nome;
     private int id;
+    private String loteIngrediente;
 
     private static final long serialVersionUID = 1L;
     
     public Ingredientes(IngredientesBuilder ingredientesBuilder){
         this.nome = ingredientesBuilder.nome;
         this.id = ingredientesBuilder.id;
+        this.loteIngrediente = ingredientesBuilder.loteIngrediente;
     }
 
     public static IngredientesBuilder builder(){
@@ -27,15 +31,14 @@ public class Ingredientes implements Serializable{
 
     @Override
     public String toString(){
-        return "Nome do ingrediente: " + nome +
-               "\nId: "+ id +
-               "\n";
+        return "Nome do ingrediente: " + nome + "| Id: "+ id;
     }
 
     public static class IngredientesBuilder{
         private String nome;
-        private int id;
-
+        private int id = GeradorIdentificadorUnico.gerarIDUnicoInt();
+        private String loteIngrediente;
+        
         public IngredientesBuilder setNome(String nome) {
         if(nome == null || nome.trim().isEmpty()){
             throw new IllegalArgumentException();
@@ -47,11 +50,11 @@ public class Ingredientes implements Serializable{
         return this;
         }
 
-        public IngredientesBuilder setId(int id){
-            if(id < 0){
+        public IngredientesBuilder setLote(String loteIngrediente){
+            if(loteIngrediente == null){
                 throw new IllegalArgumentException();
             }
-            this.id = id;
+            this.loteIngrediente = loteIngrediente;
             return this;
         }
 

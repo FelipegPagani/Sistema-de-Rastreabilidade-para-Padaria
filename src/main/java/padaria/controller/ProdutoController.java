@@ -27,7 +27,6 @@ public class ProdutoController implements ControllerInterface<Produto>{
         Video.mensagemInfo("Cadastrar Produtos: ");
 
         String nome = Teclado.readString("Informe o nome do produto: ");
-        int id = Teclado.readInteger("Informe o id do produto: ");
         
         Video.mensagem("Adicione os ingredientes utilizados: ");
         int opcao = 0;
@@ -48,7 +47,6 @@ public class ProdutoController implements ControllerInterface<Produto>{
             throw new EmptyStackException();
         }          
             Produto produto = Produto.builder()
-                        .setId(id)
                         .setNome(nome)
                         .setIngredientes(ingredientes)
                         .construir();

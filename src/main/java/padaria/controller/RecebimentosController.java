@@ -15,7 +15,10 @@ import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
 public class RecebimentosController implements ControllerInterface<Recebimentos>{
-    private RecebimentosService recebimentosService;
+        private RecebimentosService recebimentosService;
+        private Ingredientes ingrediente;
+        private Fornecedores fornecedor;
+
         IngredientesRepository IR = new IngredientesRepository();
         IngredientesService IS = new IngredientesService(IR);
         
@@ -29,23 +32,28 @@ public class RecebimentosController implements ControllerInterface<Recebimentos>
     @Override
      public void cadastrar(){
         Video.mensagemInfo("Cadastrar recebimento: ");
-
-        int id = Teclado.readInt("Informe o id do recebimento: ");
-        Ingredientes ingrediente = IS.buscarViaNome(Teclado.solicitarString("Digite o nome do ingrediente cadastrado: "));
+        try {
+            ingrediente = IS.buscarViaNome(Teclado.solicitarString("Digite o nome do ingrediente cadastrado: "));
         if(ingrediente == null){
             throw new NoSuchElementException();
         }                                                                                                                                                                                                                                                                                                                                                                   
-        Fornecedores fornecedor = FS.buscarViaNome(Teclado.solicitarString("Digite o nome do fornecedor cadastrado: "));
+            fornecedor = FS.buscarViaNome(Teclado.solicitarString("Digite o nome do fornecedor cadastrado: "));
         if(fornecedor == null){
             throw new NullPointerException();
         }
+        } catch(NoSuchElementException e){
+            Video.mensagemErro("Ingrediente não cadastrado, verifique e tente novamente!");
+        }
+        catch(NullPointerException e){
+            Video.mensagemErro("Fornecedor não cadastrado, verifique e tente novamente!");
+        }
+        
         String lote = Teclado.readString("Informe o lote de recebimento: ");
         LocalDate datavalidade = Teclado.readLocalDate("Informe a data de validade do lote ");
         LocalDate dataRecebimento = Teclado.readLocalDate("Informe a da ta de recebimento: ");
 
         Recebimentos recebimento = Recebimentos.builder()
-                        .setId(id)
-                        .setInsumo(ingrediente)
+                        .setInsumo(ingrediente) 
                         .setFornecedor(fornecedor)
                         .setLote(lote)
                         .setValidade(datavalidade)
@@ -55,12 +63,6 @@ public class RecebimentosController implements ControllerInterface<Recebimentos>
             recebimentosService.adicionar(recebimento);
             Video.mensagemOk("recebimento Cadastrado!");
         } 
-        catch(NoSuchElementException e){
-            Video.mensagemErro("Ingrediente não cadastrado, verifique e tente novamente!");
-        }
-        catch(NullPointerException e){
-            Video.mensagemErro("Fornecedor não cadastrado, verifique e tente novamente!");
-        }
         catch(EmptyStackException e){
             Video.mensagemErro("Ingrediente recebido vencido, verifique a data de validade!");
         }

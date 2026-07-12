@@ -1,5 +1,6 @@
 package padaria.model;
 
+import padaria.utilitarios.GeradorIdentificadorUnico;
 import padaria.utilitarios.Video;
 
 import java.io.Serializable;
@@ -33,13 +34,13 @@ public class LoteProducao implements Serializable{
     @Override
     public String toString() {
         return "ID: " + id + " | Nome: " + nome +
-        "\nLote de ingrediente: " + loteIngredienteUsado.getNome();
+        "\nLote de ingrediente: " + loteIngredienteUsado.toString();
     }
 
     public static class LoteProducaoBuilder{
 
         private String nome;
-        private int id;
+        private int id = GeradorIdentificadorUnico.gerarIDUnicoInt();
         private LoteIngrediente loteIngredienteUsado;
 
         public LoteProducaoBuilder setNome(String nome){
@@ -50,17 +51,6 @@ public class LoteProducao implements Serializable{
             }
 
             this.nome = nome;
-            return this;
-        }
-
-        public LoteProducaoBuilder setId(int id){
-
-            if(id < 0){
-                Video.mensagemErro("Id inválido!");
-                System.exit(0);
-            }
-
-            this.id = id;
             return this;
         }
 
