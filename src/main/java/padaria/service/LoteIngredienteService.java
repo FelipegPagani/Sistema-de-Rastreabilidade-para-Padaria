@@ -10,7 +10,7 @@ public class LoteIngredienteService {
     private LoteIngredienteRepository loteIngredienteRepository;
 
     public LoteIngredienteService(LoteIngredienteRepository loteIngredienteRepository) {
-        this.loteIngredienteRepository = new LoteIngredienteRepository();
+        this.loteIngredienteRepository = loteIngredienteRepository;
     }
 
     public void adicionarLote(LoteIngrediente loteIngrediente) {
@@ -23,6 +23,10 @@ public class LoteIngredienteService {
 
     public LoteIngrediente buscarLoteIngrediente(String nome) {
         return loteIngredienteRepository.buscar(nome);
+    }
+
+    public List<LoteIngrediente> buscarPorIngrediente(String nome) {
+        return loteIngredienteRepository.buscarPorIngrediente(nome);
     }
 
     public void excluirLoteIngrediente(String nome) {

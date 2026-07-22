@@ -38,7 +38,6 @@ public class IngredientesPersistencia {
 
     }
         catch (Exception e) {
-            Video.mensagemErro("Falha ao carregar os dados de ingredientes!");
             return new ArrayList<>();
         }
     }

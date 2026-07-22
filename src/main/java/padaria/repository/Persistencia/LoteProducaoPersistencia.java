@@ -43,7 +43,6 @@ public class LoteProducaoPersistencia {
 
             return recuperados;
         } catch (Exception e) {
-            Video.mensagemErro("Falha ao carregar os lotes de produção!");
             return new ArrayList<>();
         }
     }

@@ -9,7 +9,7 @@ import padaria.service.RastrearService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
-public class RastrearController{
+public class RastrearController {
 
     private RastrearService rastrearService;
     private LoteIngredienteService loteIngredienteService;
@@ -42,6 +42,7 @@ public class RastrearController{
             Video.mensagemErro("Erro!, Lote de Ingredientes nao encontrado.");
         }
     }
+
 
     public void listarLotesIngredientes() {
 

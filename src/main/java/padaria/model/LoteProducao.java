@@ -3,6 +3,10 @@ package padaria.model;
 import padaria.utilitarios.GeradorIdentificadorUnico;
 import padaria.utilitarios.Video;
 
+import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.List;
+
 import java.io.Serializable;
 
 public class LoteProducao implements Serializable{
@@ -12,11 +16,13 @@ public class LoteProducao implements Serializable{
     private int id;
     private String nome;
     private Produto produto;
+    private List<LoteIngrediente> lotesIngredientesUsados;
 
     public LoteProducao(LoteProducaoBuilder loteProducaoBuilder){
         this.nome = loteProducaoBuilder.nome;
         this.id = loteProducaoBuilder.id;
         this.produto = loteProducaoBuilder.produto;
+        this.lotesIngredientesUsados = loteProducaoBuilder.lotesIngredientesUsados;
     }
 
     public static LoteProducaoBuilder builder(){
@@ -31,6 +37,22 @@ public class LoteProducao implements Serializable{
         return id;
     }
 
+    public List<LoteIngrediente> getLotesIngredientesUsados() {
+    return lotesIngredientesUsados;
+    }
+
+    public boolean possuiLoteIngrediente(String nomeLoteIngrediente){
+
+    for(LoteIngrediente lote : lotesIngredientesUsados){
+
+        if(lote.getNome().equalsIgnoreCase(nomeLoteIngrediente)){
+            return true;
+        }
+    }
+
+    return false;
+}
+
 
     @Override
     public String toString() {
@@ -42,7 +64,7 @@ public class LoteProducao implements Serializable{
 
         private String nome;
         private int id = GeradorIdentificadorUnico.gerarIDUnicoInt();
-        private LoteIngrediente loteIngredienteUsado;
+        private List<LoteIngrediente> lotesIngredientesUsados;
         private Produto produto;
 
         public LoteProducaoBuilder setNome(String nome){
@@ -62,6 +84,14 @@ public class LoteProducao implements Serializable{
             }
 
             this.produto = produto;
+            return this;
+        }
+
+        public LoteProducaoBuilder setLotesIngredientesUsados(List<LoteIngrediente> lotes) {
+            if(lotes.isEmpty()){
+                throw new EmptyStackException();
+            }
+            this.lotesIngredientesUsados = lotes;
             return this;
         }
 

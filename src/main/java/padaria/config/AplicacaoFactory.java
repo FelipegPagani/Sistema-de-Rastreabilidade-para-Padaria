@@ -168,7 +168,8 @@ public class AplicacaoFactory {
         if (loteProducaoController == null)
             loteProducaoController = new LoteProducaoController(
                     getLoteProducaoService(),
-                    getProdutoService());
+                    getProdutoService(),
+                    getLoteIngredienteService());
         return loteProducaoController;
     }
 

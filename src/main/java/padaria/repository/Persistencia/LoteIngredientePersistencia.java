@@ -43,7 +43,6 @@ public class LoteIngredientePersistencia {
 
             return recuperados;
         } catch (Exception e) {
-            Video.mensagemErro("Falha ao carregar os lotes de ingredientes!");
             return new ArrayList<>();
         }
     }

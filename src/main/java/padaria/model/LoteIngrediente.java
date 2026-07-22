@@ -28,6 +28,9 @@ public class LoteIngrediente implements Serializable{
         return nome;
     }
 
+    public Ingredientes getIngredientes(){
+        return ingrediente;
+    }
     @Override
     public String toString() {
         return "Nome: " + nome + "| Id: " + id +

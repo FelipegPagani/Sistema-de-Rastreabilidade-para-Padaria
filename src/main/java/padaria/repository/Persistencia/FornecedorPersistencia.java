@@ -38,7 +38,6 @@ public class FornecedorPersistencia {
 
     }
         catch (Exception e) {
-            Video.mensagemErro("Falha ao carregar os dados de fornecedor!");
             return new ArrayList<>();
         }
     }

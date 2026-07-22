@@ -51,6 +51,21 @@ public class LoteIngredienteRepository implements RepositoryInterface<LoteIngred
         throw new NoSuchElementException("Lote não encontrado");
     }
 
+        public List<LoteIngrediente> buscarPorIngrediente(String nomeIngrediente){
+
+        List<LoteIngrediente> encontrados = new ArrayList<>();
+
+        for(LoteIngrediente lote : lotesIngredientes){
+
+            if(lote.getIngredientes().getNome().equalsIgnoreCase(nomeIngrediente)){
+
+                encontrados.add(lote);
+            }
+        }
+
+        return encontrados;
+    }
+    
     @Override
     public void excluir(String nome) {
 

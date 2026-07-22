@@ -38,7 +38,6 @@ public class ProdutosPersistencia {
 
     }
         catch (Exception e) {
-            Video.mensagemErro("Falha ao carregar os dados de produto!");
             return new ArrayList<>();
         }
     }

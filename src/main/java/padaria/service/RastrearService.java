@@ -2,7 +2,6 @@ package padaria.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import padaria.model.LoteIngrediente;
 import padaria.model.LoteProducao;
 import padaria.repository.LoteProducaoRepository;
 
@@ -13,6 +12,7 @@ public class RastrearService {
     public RastrearService(LoteProducaoRepository loteProducaoRepository){
         this.loteProducaoRepository = loteProducaoRepository;
     }
+
 
     public List<LoteProducao> buscarProducoesPorLoteIngrediente(String nomeLoteIngrediente) {
 
@@ -27,5 +27,4 @@ public class RastrearService {
 
         return producoesUtilizadas;
     }
-
 }

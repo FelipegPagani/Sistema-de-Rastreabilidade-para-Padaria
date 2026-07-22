@@ -14,7 +14,6 @@ import padaria.utilitarios.Video;
 public class ProdutoController implements ControllerInterface<Produto>{
     private ProdutoService ProdutoService;
     private IngredientesService IService;
-    private List<Ingredientes> ingredientes = new ArrayList<>();
 
     public ProdutoController(ProdutoService ProdutoService, IngredientesService IService){
         this.ProdutoService = ProdutoService;
@@ -23,6 +22,8 @@ public class ProdutoController implements ControllerInterface<Produto>{
 
     @Override
     public void cadastrar(){
+        List<Ingredientes> ingredientes = new ArrayList<>();
+        
         Video.mensagemInfo("Cadastrar Produtos: ");
 
         String nome = Teclado.readString("Informe o nome do produto: ");

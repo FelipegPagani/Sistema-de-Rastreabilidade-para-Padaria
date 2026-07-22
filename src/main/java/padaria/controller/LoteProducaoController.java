@@ -1,24 +1,30 @@
 package padaria.controller;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 
+import padaria.model.Ingredientes;
+import padaria.model.LoteIngrediente;
 import padaria.model.LoteProducao;
 import padaria.model.Produto;
 import padaria.service.LoteProducaoService;
 import padaria.service.ProdutoService;
+import padaria.service.LoteIngredienteService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 import java.util.NoSuchElementException;
 
 public class LoteProducaoController implements ControllerInterface<LoteProducao>{
 
+    private LoteIngredienteService loteIngredienteService;
     private LoteProducaoService loteProducaoService;
     private ProdutoService produtoService;
 
-    public LoteProducaoController(LoteProducaoService loteProducaoService, ProdutoService produtoService) {
+    public LoteProducaoController(LoteProducaoService loteProducaoService, ProdutoService produtoService, LoteIngredienteService loteIngredientesService) {
         this.loteProducaoService = loteProducaoService;
         this.produtoService = produtoService;
+        this.loteIngredienteService = loteIngredientesService;
     }
 
     @Override
@@ -89,14 +95,34 @@ public class LoteProducaoController implements ControllerInterface<LoteProducao>
         } catch (EmptyStackException e) {
             return;
         }
-        catch (NoSuchElementException e) {
-            return;
+
+        List<LoteIngrediente> lotesUsados = new ArrayList<>();
+
+        for(Ingredientes ingrediente : produto.getIngredientes()) {
+
+            Video.mensagemInfo(
+                "Escolha o lote de: " + ingrediente.getNome()
+            );
+
+            List<LoteIngrediente> lotes = loteIngredienteService.buscarPorIngrediente(ingrediente.getNome());
+
+            for(LoteIngrediente lote : lotes){
+                 Video.print(lote.toString());
+            }
+
+            String loteEscolhido =
+                    Teclado.readString("Informe o lote usado: ");
+
+            LoteIngrediente loteIngrediente = loteIngredienteService.buscarLoteIngrediente(loteEscolhido);
+
+            lotesUsados.add(loteIngrediente);
         }
         
         try {
             LoteProducao lote = LoteProducao.builder()
                     .setNome(nomeLote)
                     .setProduto(produto)
+                    .setLotesIngredientesUsados(lotesUsados)
                     .construir();
 
             loteProducaoService.adicionar(lote);

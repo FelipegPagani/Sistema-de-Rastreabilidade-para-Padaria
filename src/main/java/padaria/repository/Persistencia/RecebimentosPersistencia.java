@@ -38,7 +38,6 @@ public class RecebimentosPersistencia {
 
     }
         catch (Exception e) {
-            Video.mensagemErro("Falha ao carregar os dados de recebimentos!");
             return new ArrayList<>();
         }
     }

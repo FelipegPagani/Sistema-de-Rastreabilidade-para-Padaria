@@ -43,7 +43,6 @@ public class ClientesPersistencia {
 
             return recuperados;
         } catch (Exception e) {
-            Video.mensagemErro("Falha ao carregar os dados dos clientes!");
             return new ArrayList<>();
         }
     }
