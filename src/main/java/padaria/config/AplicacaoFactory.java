@@ -147,6 +147,7 @@ public class AplicacaoFactory {
             recebimentosController = new RecebimentosController(
                     getRecebimentosService(),
                     getFornecedoresService(),
+                    getLoteIngredienteService(),
                     getIngredientesService());
         return recebimentosController;
     }

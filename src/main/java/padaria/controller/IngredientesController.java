@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import padaria.model.Ingredientes;
-import padaria.model.LoteIngrediente;
-import padaria.repository.LoteIngredienteRepository;
 import padaria.service.IngredientesService;
 import padaria.service.LoteIngredienteService;
 import padaria.utilitarios.Teclado;
@@ -14,11 +12,9 @@ import padaria.utilitarios.Video;
 
 public class IngredientesController implements ControllerInterface<Ingredientes>{
     private IngredientesService ingredientesService;
-    private LoteIngredienteService LIService;
 
     public IngredientesController(IngredientesService ingredientesService, LoteIngredienteService LIService){
         this.ingredientesService = ingredientesService;
-        this.LIService = LIService;
     }
 
     @Override
@@ -26,24 +22,14 @@ public class IngredientesController implements ControllerInterface<Ingredientes>
         Video.mensagemInfo("Cadastrar Ingredientes: ");
     try {
         String nomeIngrediente = Teclado.readString("Informe o nome do ingrediente: ");
-        String nomeLote = Teclado.readString("Informe o nome do lote: ");
      
             
             Ingredientes ingrediente = Ingredientes.builder()
                         .setNome(nomeIngrediente)
-                        .setLote(nomeLote)
                         .construir();
             ingredientesService.adicionar(ingrediente);
 
-            LoteIngrediente lote = LoteIngrediente.builder()
-                    .setNome(nomeLote)
-                    .setIngredientes(ingrediente)
-                    .construir();
-
-            LIService.adicionarLote(lote);
-
-Video.mensagemOk("Ingrediente e lote cadastrados com sucesso!");
-            Video.mensagemOk("Ingrediente e lote cadastrados com sucesso!");
+            Video.mensagemOk("Ingrediente cadastrado com sucesso!");
         } 
         catch(NumberFormatException e){
             Video.mensagemErro("Digite apenas letras para o nome!");

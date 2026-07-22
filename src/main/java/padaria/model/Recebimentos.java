@@ -11,7 +11,7 @@ public class Recebimentos implements Serializable{
     private int id;
     private Ingredientes insumo;
     private Fornecedores fornecedor;
-    private String lote;
+    private LoteIngrediente lote;
     private LocalDate dataValidade;
     private LocalDate dataRecebimento;
 
@@ -42,7 +42,7 @@ public class Recebimentos implements Serializable{
         return fornecedor;
     }
 
-    public String getLote(){
+    public LoteIngrediente getLote(){
         return lote;
     }
 
@@ -57,8 +57,7 @@ public class Recebimentos implements Serializable{
     @Override
     public String toString(){
         return "Id do recebimento: "+ id + "\n" +
-               "Lote do recebimento: "+ lote + "\n" +
-               "ingredientes recebidos: \n"+ insumo +
+               "ingredientes recebidos: \n"+ lote.toString() +
                "Fornecedor do recebimento: \n"+ fornecedor +
                "Data de recebimento: " + dataRecebimento + "\n" +
                "Data de validade: " + dataValidade +
@@ -69,7 +68,7 @@ public class Recebimentos implements Serializable{
         private int id = GeradorIdentificadorUnico.gerarIDUnicoInt();;
         private Ingredientes insumo;
         private Fornecedores fornecedor;
-        private String lote;
+        private LoteIngrediente lote;
         private LocalDate dataValidade;
         private LocalDate dataRecebimento;
         private LocalDate dataAtual = LocalDate.now();
@@ -89,8 +88,8 @@ public class Recebimentos implements Serializable{
             this.fornecedor = fornecedor;
             return this;
         }
-        public RecebimentosBuilder setLote(String lote){
-            if(lote == null || lote.trim().isEmpty()){
+        public RecebimentosBuilder setLote(LoteIngrediente lote){
+            if(lote == null){
                 throw new IllegalArgumentException();
             }
             this.lote = lote;

@@ -35,7 +35,7 @@ public class LoteProducao implements Serializable{
     @Override
     public String toString() {
         return "ID: " + id + " | Nome: " + nome +
-        "\nProduto produzido: " + produto.getNome();
+        "\nProduto produzido: " + produto.toString();
     }
 
     public static class LoteProducaoBuilder{

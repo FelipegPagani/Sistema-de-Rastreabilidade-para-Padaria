@@ -81,7 +81,7 @@ public class FornecedoresRepository implements RepositoryInterface<Fornecedores>
             }
         }
         if(encontrado == null){
-            throw new NoSuchElementException();
+            throw new NullPointerException();
         }
         return encontrado;
        

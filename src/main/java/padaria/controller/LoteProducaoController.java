@@ -5,19 +5,16 @@ import java.util.List;
 
 import padaria.model.LoteProducao;
 import padaria.model.Produto;
-import padaria.service.LoteIngredienteService;
 import padaria.service.LoteProducaoService;
 import padaria.service.ProdutoService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
-import padaria.model.LoteIngrediente;
 import java.util.NoSuchElementException;
 
 public class LoteProducaoController implements ControllerInterface<LoteProducao>{
 
     private LoteProducaoService loteProducaoService;
     private ProdutoService produtoService;
-    private LoteIngredienteService loteIngredienteService;
 
     public LoteProducaoController(LoteProducaoService loteProducaoService, ProdutoService produtoService) {
         this.loteProducaoService = loteProducaoService;
@@ -83,7 +80,6 @@ public class LoteProducaoController implements ControllerInterface<LoteProducao>
 
     @Override
     public void cadastrar() {
-        LoteIngrediente loteIngrediente;
         Produto produto;
 
         String nomeLote = Teclado.readString("Nome do lote de produção: ");

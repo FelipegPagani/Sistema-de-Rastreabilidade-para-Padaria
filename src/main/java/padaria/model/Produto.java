@@ -37,8 +37,8 @@ public class Produto implements Serializable{
     public String toString(){
         return "Nome produto: " + nome +
                "\nId: " + id +
-               "\nIngredientes utilizados: \n" + ingredientes +
-               "\n";
+               "\nIngredientes utilizados: \n" + ingredientes;
+                
     }
 
     public static class ProdutoBuilder{

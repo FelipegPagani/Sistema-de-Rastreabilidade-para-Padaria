@@ -8,19 +8,24 @@ import java.util.NoSuchElementException;
 import padaria.model.*;
 import padaria.service.FornecedoresService;
 import padaria.service.IngredientesService;
+import padaria.service.LoteIngredienteService;
 import padaria.service.RecebimentosService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 
 public class RecebimentosController implements ControllerInterface<Recebimentos>{
         private RecebimentosService recebimentosService;
-        private IngredientesService IS;
+        private LoteIngredienteService LIService;
         private FornecedoresService FS;
+        private IngredientesService IS;
         private Ingredientes ingrediente;
         private Fornecedores fornecedor;
+        
+        
 
-    public RecebimentosController(RecebimentosService recebimentosService, FornecedoresService FS, IngredientesService IS){
+    public RecebimentosController(RecebimentosService recebimentosService, FornecedoresService FS, LoteIngredienteService LIService, IngredientesService IS){
         this.recebimentosService = recebimentosService;
+        this.LIService = LIService;
         this.IS = IS;
         this.FS = FS;
     }
@@ -29,35 +34,40 @@ public class RecebimentosController implements ControllerInterface<Recebimentos>
      public void cadastrar(){
         Video.mensagemInfo("Cadastrar recebimento: ");
         try {
-            ingrediente = IS.buscarViaNome(Teclado.solicitarString("Digite o nome do ingrediente cadastrado: "));
-        if(ingrediente == null){
-            throw new NoSuchElementException();
-        }                                                                                                                                                                                                                                                                                                                                                                   
+            ingrediente = IS.buscarViaNome(Teclado.solicitarString("Digite o nome do ingrediente cadastrado: "));                                                                                                                                                                                                                                                                                                                                       
             fornecedor = FS.buscarViaNome(Teclado.solicitarString("Digite o nome do fornecedor cadastrado: "));
-        if(fornecedor == null){
-            throw new NullPointerException();
-        }
+            
         } catch(NoSuchElementException e){
             Video.mensagemErro("Ingrediente não cadastrado, verifique e tente novamente!");
         }
         catch(NullPointerException e){
             Video.mensagemErro("Fornecedor não cadastrado, verifique e tente novamente!");
         }
+        catch(EmptyStackException e){
+            Video.mensagemErro("Lista vazia, cadastre algo antes de seguir!");
+        }
         
-        String lote = Teclado.readString("Informe o lote de recebimento: ");
+        String lote = Teclado.readString("Informe o lote de recebimento do ingrediente: ");
         LocalDate datavalidade = Teclado.readLocalDate("Informe a data de validade do lote ");
         LocalDate dataRecebimento = Teclado.readLocalDate("Informe a da ta de recebimento: ");
+        
+        LoteIngrediente loteIngrediente = LoteIngrediente.builder()
+                    .setNome(lote)
+                    .setIngredientes(ingrediente)
+                    .construir();
 
         Recebimentos recebimento = Recebimentos.builder()
                         .setInsumo(ingrediente) 
                         .setFornecedor(fornecedor)
-                        .setLote(lote)
+                        .setLote(loteIngrediente)
                         .setValidade(datavalidade)
                         .setRecebimento(dataRecebimento)
                         .construir();
         try {
             recebimentosService.adicionar(recebimento);
             Video.mensagemOk("recebimento Cadastrado!");
+
+            LIService.adicionarLote(loteIngrediente);
         } 
         catch(EmptyStackException e){
             Video.mensagemErro("Ingrediente recebido vencido, verifique a data de validade!");

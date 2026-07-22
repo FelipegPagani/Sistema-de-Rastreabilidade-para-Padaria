@@ -35,7 +35,7 @@ public class Ingredientes implements Serializable{
 
     @Override
     public String toString(){
-        return "Nome do ingrediente: " + nome + "| Id: "+ id;
+        return "Nome do ingrediente: " + nome + "| Id: "+ id + "\n";
     }
 
     public static class IngredientesBuilder{

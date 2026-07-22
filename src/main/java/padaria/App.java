@@ -101,7 +101,6 @@ public class App {
                         opcaoPessoa = MenuLoteIngrediente.exibir();
                         switch (opcaoPessoa) {
                             case 1 -> app.getLoteIngredienteController().listar();
-                            case 2 -> app.getLoteIngredienteController().cadastrar();
                             case 3 -> app.getLoteIngredienteController().excluir();
                             case 4 -> app.getLoteIngredienteController().buscar();
                         }

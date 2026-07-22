@@ -2,7 +2,6 @@ package padaria.controller;
 
 import java.util.List;
 
-import padaria.model.Ingredientes;
 import padaria.model.LoteIngrediente;
 import padaria.repository.IngredientesRepository;
 import padaria.service.IngredientesService;
@@ -22,26 +21,7 @@ public class LoteIngredienteController implements ControllerInterface<LoteIngred
     }
 
     @Override
-    public void cadastrar() {
-        String nome = Teclado.readString("Nome do lote: ");
-        
-        try {
-            Ingredientes ingrediente = IS.buscarViaNome(Teclado.solicitarString("Digite o nome do ingrediente do lote: "));
-            LoteIngrediente loteIngrediente = LoteIngrediente.builder()
-                .setNome(nome)
-                .setIngredientes(ingrediente)
-                .construir();
-                
-            loteIngredienteService.adicionarLote(loteIngrediente);
-            Video.mensagemOk("Lote cadastrado!");
-
-        } catch (IllegalArgumentException e) {
-            Video.mensagemErro(e.getMessage());
-
-        } catch (Exception e) {
-            Video.mensagemErro("Erro não previsto!");
-        }
-    }
+    public void cadastrar(){}
 
     @Override
     public void listar() {
