@@ -71,15 +71,20 @@ public class IngredientesRepository implements RepositoryInterface<Ingredientes>
 
     @Override
     public Ingredientes buscar(String nome){
+        Ingredientes encontrado = null;
+
         if(ingredientes.isEmpty()){
             throw new EmptyStackException();
         }
         for (Ingredientes ingrediente : ingredientes) {
             if(nome.equals(ingrediente.getNome())){
-                return ingrediente;
+                encontrado = ingrediente;
             }
         }
+           if(encontrado == null){
            throw new NoSuchElementException(); 
+        }
+        return encontrado;
     }
 
     public Ingredientes buscarViaID(int id){

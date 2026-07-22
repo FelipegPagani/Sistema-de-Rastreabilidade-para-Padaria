@@ -14,11 +14,11 @@ import padaria.utilitarios.Video;
 
 public class IngredientesController implements ControllerInterface<Ingredientes>{
     private IngredientesService ingredientesService;
-    LoteIngredienteRepository LIR = new LoteIngredienteRepository();
-    LoteIngredienteService LIS = new LoteIngredienteService(LIR);
+    private LoteIngredienteService LIService;
 
-    public IngredientesController(IngredientesService ingredientesService){
+    public IngredientesController(IngredientesService ingredientesService, LoteIngredienteService LIService){
         this.ingredientesService = ingredientesService;
+        this.LIService = LIService;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class IngredientesController implements ControllerInterface<Ingredientes>
                     .setIngredientes(ingrediente)
                     .construir();
 
-            LIS.adicionarLote(lote);
+            LIService.adicionarLote(lote);
 
 Video.mensagemOk("Ingrediente e lote cadastrados com sucesso!");
             Video.mensagemOk("Ingrediente e lote cadastrados com sucesso!");

@@ -29,6 +29,9 @@ public class Produto implements Serializable{
     public String getNome() {
         return nome;
     }
+    public List<Ingredientes> getIngredientes(){
+        return ingredientes;
+    }
 
     @Override
     public String toString(){

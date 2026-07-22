@@ -1,11 +1,13 @@
 package padaria.controller;
 
+import java.util.EmptyStackException;
 import java.util.List;
 
 import padaria.model.LoteProducao;
-import padaria.repository.LoteIngredienteRepository;
+import padaria.model.Produto;
 import padaria.service.LoteIngredienteService;
 import padaria.service.LoteProducaoService;
+import padaria.service.ProdutoService;
 import padaria.utilitarios.Teclado;
 import padaria.utilitarios.Video;
 import padaria.model.LoteIngrediente;
@@ -14,11 +16,12 @@ import java.util.NoSuchElementException;
 public class LoteProducaoController implements ControllerInterface<LoteProducao>{
 
     private LoteProducaoService loteProducaoService;
-    LoteIngredienteRepository LIRepository = new LoteIngredienteRepository();
-    LoteIngredienteService LIService = new LoteIngredienteService(LIRepository);
+    private ProdutoService produtoService;
+    private LoteIngredienteService loteIngredienteService;
 
-    public LoteProducaoController(LoteProducaoService loteProducaoService) {
+    public LoteProducaoController(LoteProducaoService loteProducaoService, ProdutoService produtoService) {
         this.loteProducaoService = loteProducaoService;
+        this.produtoService = produtoService;
     }
 
     @Override
@@ -80,25 +83,35 @@ public class LoteProducaoController implements ControllerInterface<LoteProducao>
 
     @Override
     public void cadastrar() {
-        String nome = Teclado.readString("Nome do lote de produção: ");
+        LoteIngrediente loteIngrediente;
+        Produto produto;
+
+        String nomeLote = Teclado.readString("Nome do lote de produção: ");
         
         try {
-            
-            LoteIngrediente loteIngrediente = LIService.buscarLoteIngrediente(Teclado.solicitarString("Digite o lote de ingrediente utilizado: "));
+            produto = produtoService.buscarViaNome(Teclado.readString("Informe o nome do produto produzido: "));
+        } catch (EmptyStackException e) {
+            return;
+        }
+        catch (NoSuchElementException e) {
+            return;
+        }
+        
+        try {
             LoteProducao lote = LoteProducao.builder()
-                    .setNome(nome)
-                    .setLoteIngrediente(loteIngrediente)
+                    .setNome(nomeLote)
+                    .setProduto(produto)
                     .construir();
 
             loteProducaoService.adicionar(lote);
             Video.mensagemOk("Lote de produção cadastrado!");
 
-        } catch (IllegalArgumentException e) {
-            Video.mensagemErro(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                Video.mensagemErro(e.getMessage());
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            Video.mensagemErro("Erro não previsto!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                Video.mensagemErro("Erro não previsto!");
+            }
         }
-    }
 }

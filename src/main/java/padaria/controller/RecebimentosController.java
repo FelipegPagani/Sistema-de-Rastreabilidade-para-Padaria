@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import padaria.model.*;
-import padaria.repository.FornecedoresRepository;
-import padaria.repository.IngredientesRepository;
 import padaria.service.FornecedoresService;
 import padaria.service.IngredientesService;
 import padaria.service.RecebimentosService;
@@ -16,17 +14,15 @@ import padaria.utilitarios.Video;
 
 public class RecebimentosController implements ControllerInterface<Recebimentos>{
         private RecebimentosService recebimentosService;
+        private IngredientesService IS;
+        private FornecedoresService FS;
         private Ingredientes ingrediente;
         private Fornecedores fornecedor;
 
-        IngredientesRepository IR = new IngredientesRepository();
-        IngredientesService IS = new IngredientesService(IR);
-        
-        FornecedoresRepository FR = new FornecedoresRepository();
-        FornecedoresService FS = new FornecedoresService(FR);
-
-    public RecebimentosController(RecebimentosService recebimentosService){
+    public RecebimentosController(RecebimentosService recebimentosService, FornecedoresService FS, IngredientesService IS){
         this.recebimentosService = recebimentosService;
+        this.IS = IS;
+        this.FS = FS;
     }
 
     @Override

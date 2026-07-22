@@ -11,12 +11,12 @@ public class LoteProducao implements Serializable{
 
     private int id;
     private String nome;
-    private LoteIngrediente loteIngredienteUsado;
+    private Produto produto;
 
     public LoteProducao(LoteProducaoBuilder loteProducaoBuilder){
         this.nome = loteProducaoBuilder.nome;
         this.id = loteProducaoBuilder.id;
-        this.loteIngredienteUsado = loteProducaoBuilder.loteIngredienteUsado;
+        this.produto = loteProducaoBuilder.produto;
     }
 
     public static LoteProducaoBuilder builder(){
@@ -31,10 +31,11 @@ public class LoteProducao implements Serializable{
         return id;
     }
 
+
     @Override
     public String toString() {
         return "ID: " + id + " | Nome: " + nome +
-        "\nLote de ingrediente: " + loteIngredienteUsado.toString();
+        "\nProduto produzido: " + produto.getNome();
     }
 
     public static class LoteProducaoBuilder{
@@ -42,6 +43,7 @@ public class LoteProducao implements Serializable{
         private String nome;
         private int id = GeradorIdentificadorUnico.gerarIDUnicoInt();
         private LoteIngrediente loteIngredienteUsado;
+        private Produto produto;
 
         public LoteProducaoBuilder setNome(String nome){
 
@@ -54,12 +56,12 @@ public class LoteProducao implements Serializable{
             return this;
         }
 
-        public LoteProducaoBuilder setLoteIngrediente(LoteIngrediente lotesIngredientes){
-            if(lotesIngredientes == null){
+        public LoteProducaoBuilder setProduto(Produto produto){
+            if(produto == null){
                 throw new IllegalArgumentException();
             }
 
-            this.loteIngredienteUsado = lotesIngredientes;
+            this.produto = produto;
             return this;
         }
 

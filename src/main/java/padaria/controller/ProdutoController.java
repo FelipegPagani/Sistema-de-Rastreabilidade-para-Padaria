@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import padaria.model.*;
-import padaria.repository.IngredientesRepository;
 import padaria.service.IngredientesService;
 import padaria.service.ProdutoService;
 import padaria.utilitarios.Teclado;
@@ -14,12 +13,12 @@ import padaria.utilitarios.Video;
 
 public class ProdutoController implements ControllerInterface<Produto>{
     private ProdutoService ProdutoService;
+    private IngredientesService IService;
     private List<Ingredientes> ingredientes = new ArrayList<>();
-    IngredientesRepository IR = new IngredientesRepository();
-    IngredientesService IS = new IngredientesService(IR);
 
-    public ProdutoController(ProdutoService ProdutoService){
+    public ProdutoController(ProdutoService ProdutoService, IngredientesService IService){
         this.ProdutoService = ProdutoService;
+        this.IService = IService;
     }
 
     @Override
@@ -31,10 +30,11 @@ public class ProdutoController implements ControllerInterface<Produto>{
         Video.mensagem("Adicione os ingredientes utilizados: ");
         int opcao = 0;
         do {
-            opcao = Teclado.solicitarInt("Digite uma opção:\n 0 - Sair\n 1 - Add ingrediente");
+            opcao = Teclado.solicitarInt("Digite uma opção:\n 0 - Salvar\n 1 - Add ingrediente ");
             if(opcao == 1){
                 try {
-                    ingredientes.add(IS.buscarViaNome(Teclado.solicitarString("Informe o ingrediente utilizado: ")));
+                    ingredientes.add(IService.buscarViaNome(Teclado.solicitarString("Informe o ingrediente utilizado: ")));
+                    Video.mensagemOk("Ingrediente Adicionado!");
                 } catch (Exception e) {
                     Video.mensagemErro("Ingrediente não encontrado, tente novamente!");
                 }
